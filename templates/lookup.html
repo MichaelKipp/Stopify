@@ -9,9 +9,10 @@
       <input type="text" name="lookup" hint="Lookup a word">
       <input type="submit">
       {% if word %}
-        <h1> {{ word }} <h1>
+        <p> {{ word }} </p>
+        <p> seconds: {{ time }} </p>
       {% else %}
-        <h1> ___ <h1>
+        <p> ___ </p>
       {% endif %}
     </form>
   </body>
