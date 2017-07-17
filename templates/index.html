@@ -2,10 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel='stylesheet' type='text/css' href='index.css'>
     <title>Stopify</title>
   </head>
   <body>
-    <p> Welcome! </p>
-    <p><a href ="{{ url_for('lookup') }}">Click here for lookup</a><p>
+      <table id='Page'>
+        <tr>
+          <td> Cell A
+            <div id='Doc_Box'>
+            </div>
+          </td>
+          <td> Cell B
+            <div id='Stop_Box'>
+            </div>
+          </td>
+          </tr>
+      </table>
+<!--
+      <p> Welcome! </p>
+      <p><a href ="{{ url_for('lookup') }}">Click here for lookup</a><p>
+-->
   </body>
 </html>
