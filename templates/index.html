@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel='stylesheet' type='text/css' href='index.css'>
-    <title>Stopify</title>
-  </head>
-  <body>
-      <table id='Page'>
-        <tr>
-          <td> Cell A
-            <div id='Doc_Box'>
-            </div>
-          </td>
-          <td> Cell B
-            <div id='Stop_Box'>
-            </div>
-          </td>
-          </tr>
-      </table>
-<!--
-      <p> Welcome! </p>
-      <p><a href ="{{ url_for('lookup') }}">Click here for lookup</a><p>
--->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <link rel="stylesheet" href="../static/main.css">
+  <title>Stopify</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5" aria-hidden="true">
+        <div class="search_bar" id="doc_search">
+          <input type="text" name="search" placeholder="Search...">
+          <div>
+            <span></span>
+          </div>
+        </div>
+        <div class="doc_page">
+          <!-- TODO: Add scroller that loads doc text preview-->
+          <div class="doc_container">
+
+          </div>
+          <div class="active_stoplists">
+
+          </div>
+        </div>
+      </div>
+      <div id="doc_functions" class="col-md-1" aria-hidden="true">
+          <button type="button" name="BtnDefault" onclick="generate_default()">Default</button>
+      </div>
+      <div id="stop_functions" class="col-md-1" aria-hidden="true">
+        <button type="button" name="BtnAdd" onclick="add()">Add</button>
+        <button type="button" name="BtnCreate" onclick="create()">Create</button>
+      </div>
+      <div class="col-md-5" aria-hidden="true">
+        <div class="search_bar" id="stop_search">
+          <input type="text" name="search" placeholder="Search...">
+          <div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!-- Variables -->
+<script type="text/javascript">
+  var numDocs = {{ num_docs }};
+</script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='handler.js') }}"></script>
+
 </html>
