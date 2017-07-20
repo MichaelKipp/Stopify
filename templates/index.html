@@ -20,9 +20,6 @@
       <div class="col-md-5" aria-hidden="true">
         <div class="search_bar" id="doc_search">
           <input type="text" name="search" placeholder="Search...">
-          <div>
-            <span></span>
-          </div>
         </div>
         <div class="doc_page">
           <!-- TODO: Add scroller that loads doc text preview-->
@@ -35,7 +32,7 @@
         </div>
       </div>
       <div id="doc_functions" class="col-md-1" aria-hidden="true">
-          <button type="button" name="BtnDefault" onclick="generate_default()">Default</button>
+          <button type="button" id="def_stop_gen" name="BtnDefault" onclick="add_default_stoplist()">Default</button>
       </div>
       <div id="stop_functions" class="col-md-1" aria-hidden="true">
         <button type="button" name="BtnAdd" onclick="add()">Add</button>
@@ -44,8 +41,10 @@
       <div class="col-md-5" aria-hidden="true">
         <div class="search_bar" id="stop_search">
           <input type="text" name="search" placeholder="Search...">
-          <div>
-            <span></span>
+        </div>
+        <div class="stop_page">
+          <div class="stop_container">
+
           </div>
         </div>
       </div>

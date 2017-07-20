@@ -74,6 +74,37 @@
   color: rgb(37, 37, 37);
 }
 
+.stop_page {
+  position: relative;
+  height: 90%;
+}
+
+.stop_container {
+  display: inline-block;
+  margin-top: 20px;
+  width: auto;
+}
+
+.stop_holder {
+  position: relative;
+  float: left;
+  width: 100px;
+  height: 150px;
+  box-shadow: 0 1px 4px rgba(1, 1, 1, .15);
+  margin: 0 0 50px 30px;
+}
+
+.stop_box {
+  position: relative;
+  background: rgb(255, 255, 255);
+  display: inline-block;
+  padding: 12px 15px 0;
+  height: inherit;
+  width: inherit;
+  cursor: pointer;
+  color: rgb(37, 37, 37);
+}
+
 .active_stoplists {
   position: absolute;
   height: 15%;
