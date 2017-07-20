@@ -1,5 +1,5 @@
 .container-fluid {
-  background: rgb(230, 230, 230);
+  background: rgb(246, 246, 246);
   height: 100vh;
   width: 100%;
 }
@@ -14,18 +14,35 @@
 
 .search_bar {
   position: relative;
-  border: 1px solid rgb(236, 236, 236);
+  display: inline-block;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, .08);
   box-shadow:
-    inset -2px 2px 2px rgba(0, 0, 0, 0.05);
+    inset .5px 2px 4px rgba(0, 0, 0, 0.1);
   background: rgb(255, 255, 255);
   outline-width: 0;
   margin-top: 20px;
 }
 
-.search_bar, input {
+.search_input {
+  position: relative;
   border: none;
   width: 100%;
+  background:transparent;
+  padding-left: 10px;
   font-size: 15px;
+}
+
+.search-img {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  height: 15px;
+  width: 15px;
+}
+
+.search-img:hover {
+  cursor: pointer;
 }
 
 #doc_functions {
@@ -54,16 +71,17 @@
   width: auto;
 }
 
-.doc_holder {
+.doc_wrapper {
   position: relative;
   float: left;
   width: 100px;
   height: 150px;
-  box-shadow: 0 1px 4px rgba(1, 1, 1, .15);
+  box-shadow: 0px 0px 8px 2px rgba(1, 1, 1, .1);
+  border: .5px solid rgba(1, 1, 1, .1);
   margin: 0 0 50px 30px;
 }
 
-.doc_box {
+.doc_item {
   position: relative;
   background: rgb(255, 255, 255);
   display: inline-block;
@@ -71,7 +89,6 @@
   height: inherit;
   width: inherit;
   cursor: pointer;
-  color: rgb(37, 37, 37);
 }
 
 .stop_page {
@@ -85,16 +102,16 @@
   width: auto;
 }
 
-.stop_holder {
+.stop_wrapper {
   position: relative;
   float: left;
   width: 100px;
   height: 150px;
-  box-shadow: 0 1px 4px rgba(1, 1, 1, .15);
+  box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, .15);
   margin: 0 0 50px 30px;
 }
 
-.stop_box {
+.stop_item {
   position: relative;
   background: rgb(255, 255, 255);
   display: inline-block;
@@ -109,14 +126,8 @@
   position: absolute;
   height: 15%;
   width: 100%;
-  border: 1px solid rgb(150, 150, 150);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, .05) ;
+  box-shadow: 0px 0px 50px 0px rgba(2, 2, 2, .15);
   bottom: 0px;
-}
-
-input {
-  -webkit-appearance: text;
-  -webkit-rtl-ordering: logical;
-  user-select: text;
-  cursor: auto;
-  padding: 1px 1px 1px 8px;
 }

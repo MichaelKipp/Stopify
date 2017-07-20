@@ -44,7 +44,6 @@ def create_stoplist(words, name):
             raise
     with open("stoplists/" + name + ".txt", "w") as file:
         for item in words:
-            print item
             file.write(item + "\n")
         file.close()
 
