@@ -47,15 +47,16 @@ def create_stoplist(words, name):
             file.write(item + "\n")
         file.close()
 
-@app.route('/default_stop/')
-def getStops():
+# TODO: Figure out how to do data right
+@app.route('/stoplist/<name>')
+def getStops(name):
     global TERM_FREQ
     frequentest = Counter({})
     frequentest = TERM_FREQ.most_common(25)
     default = []
     for k, v in frequentest:
         default.append(k)
-    create_stoplist(default, "default")
+    create_stoplist(default, name)
     return jsonify({ 'stoplist':frequentest })
 
 # Render index.html

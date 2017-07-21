@@ -1,41 +1,61 @@
-function generate_default_stoplist() {
-  var $stop = $("\
-      <div class='stop_wrapper'>   \
-        <div class='stop_item'>    \
-          <p>stop</p>              \
-        </div>                     \
-      </div>                       \
+var stopLists = {};
+
+// Creates a new stoplist
+function createStoplist(name) {
+  // Create html for stoplist view
+  var $stopList = $("\
+    <div class='item_wrapper'>                        \
+      <div id='stoplist_" + name + "'                 \
+            class='stop_item'                         \
+            onclick='activateStoplist(" + 'name' + ")'> \
+        <p>" + name + "</p>                           \
+      </div>                                          \
+    </div>                                            \
   ");
-  return $stop;
-}
+  // Add to list of lists
+  stopLists[name + ""] = 0;
+  // Create .txt file
+  var stopURL = '/stoplist/' + name;
+  d3.json(stopURL, function(foo) {
 
-d3.select('#def_stop_gen')
-  .on('click', function() {
-    console.log("Check");
-    var stopURL = '/default_stop/';
-    d3.json(stopURL, function(foo) {
-      console.log(foo);
-    });
   });
-
-// TODO: Stoplist listener
-// TODO: On hover reveal checkbox
-// TODO: Add icon to active stoplists
-// TODO: Add words to some data structure
-// TODO: Apply effects to corpus
-
-// TODO: Active stoplist listener
-// TODO: Updates corpus diagnostic visuals
-
-
-
-function add_default_stoplist() {
-  $(".stop_container").append(generate_default_stoplist());
+  $(".stop_page").append($stopList);
 }
 
-function generateDoc(num) {
+// Engages a stoplist and adds it to active stops
+function activateStoplist(name) {
+  console.log(name);
+  console.log("#stoplist_" + name + " activated.");
+  console.log(stopLists['default']);
+  if(stopLists[name + ""] == 0) {
+  $activeStopLlist = $("\
+    <div class='item_wrapper activeList_" + name + "_wrapper'>   \
+      <div id='activelist_" + name + "'              \
+            class='activeList_item'                 \
+            onclick='activateStoplist(" + name + ")'> \
+        <p>" + name + "</p>                 \
+      </div>                                  \
+    </div>                                    \
+    ");
+    $(".active_stoplists").append("$activeStoplist")
+  } else {
+    $(".active_stoplists").remove(".activeList_" + name +  "_wrapper");
+  }
+
+  stopLists[name] = 1 - stopLists[name];
+  updateDocuments();
+}
+
+// Efficiently update document visuals to any changes to active stoplists
+function updateDocuments() {
+  // Remove specific items that changed instead of reloading whole visualization
+  // generateDocumentVisualizations();
+}
+
+// Creates HTML for each doc in corpus
+function generateDocs(num) {
   var $doc = $("\
-      <div class='doc_wrapper'>   \
+      <div class='item_wrapper'>   \
         <div class='doc_item'>    \
           <p></p>                 \
         </div>                    \
@@ -44,9 +64,10 @@ function generateDoc(num) {
   return $doc;
 }
 
+// Adds documents from corpus to viewer
 function addDocs() {
   for (i = 0; i < 5; i++) {
-    $(".doc_container").append(generateDoc(i));
+    $(".doc_container").append(generateDocs(i));
   }
 }
 
