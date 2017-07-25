@@ -28,6 +28,7 @@ def process_TDM():
     global GLOBAL_TDM
     GLOBAL_TDM = make_term_document_matrix(corpus_dir)
 
+# Generates dictionary of terms and frequencies in corupus
 def term_freq():
     global TERM_FREQ
     for item in GLOBAL_TDM:
@@ -36,28 +37,32 @@ def term_freq():
         for j in range(len(GLOBAL_TDM[item])):
             TERM_FREQ[item] += int(GLOBAL_TDM[item][j])
 
-def create_stoplist(words, name):
+# TODO: Figure out how to do data right
+@app.route('/get_stoplist/<name>')
+def getStoplist(name):
+    stopwords = []
+    if os.path.isfile("stoplists/" + name + ".txt"):
+        with open("stoplists/" + name + ".txt", "r+") as file:
+            for line in file:
+                stopwords.append(line.strip())
+        return jsonify({ 'stopwords':stopwords })
+    else:
+        return "No such file exists."
+
+# TODO: Figure out how to do data right
+@app.route('/create_stoplist/<name>')
+def createStoplist(name):
     try:
         os.makedirs('stoplists/')
     except OSError:
         if not os.path.isdir('stoplists/'):
             raise
-    with open("stoplists/" + name + ".txt", "w") as file:
-        for item in words:
-            file.write(item + "\n")
-        file.close()
-
-# TODO: Figure out how to do data right
-@app.route('/stoplist/<name>')
-def getStops(name):
-    global TERM_FREQ
-    frequentest = Counter({})
-    frequentest = TERM_FREQ.most_common(25)
-    default = []
-    for k, v in frequentest:
-        default.append(k)
-    create_stoplist(default, name)
-    return jsonify({ 'stoplist':frequentest })
+    if os.path.isfile("stoplists/" + name + ".txt"):
+        print "File already exists"
+    else:
+        with open("stoplists/" + name + ".txt", "w") as file:
+            file.close()
+    return jsonify({})
 
 # Render index.html
 @app.route('/')
@@ -69,3 +74,24 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TODO: Figure this bit out. Should have a make and a return.
+# global TERM_FREQ
+# frequentest = Counter({})
+# frequentest = TERM_FREQ.most_common(25)
+# default = []
+# for k, v in frequentest:
+#     default.append(k)
