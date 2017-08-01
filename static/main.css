@@ -9,7 +9,6 @@
 }
 
 .col-md-5 {
-  position: relative;
 }
 
 .search_bar {
@@ -46,12 +45,12 @@
 }
 
 #doc_functions {
-  background-color: rgb(133, 255, 236);
+  background-color: rgb(132, 142, 255);
   height: 100%;
 }
 
 #stop_functions {
-  background-color: rgb(255, 106, 98);
+  background-color: rgb(255,138,132);
   height: 100%;
 }
 
@@ -119,7 +118,7 @@
   height: 15%;
   width: 100%;
   background: rgb(255, 255, 255);
-  border: 1px solid rgba(0, 0, 0, .05) ;
+  border: 1px solid rgba(0, 0, 0, .05);
   box-shadow: 0px 0px 50px 0px rgba(2, 2, 2, .15);
   bottom: 0px;
 }
@@ -129,4 +128,18 @@
   width: 75px;
   height: 100px;
   margin: 0 10px;
+}
+
+#suggestion_page {
+    height: 98%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    float: left;
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    transition: 0.5s;
+    margin: 10px 10px 10px 10px;
 }

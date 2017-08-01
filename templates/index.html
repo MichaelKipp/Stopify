@@ -17,10 +17,10 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-5" aria-hidden="true">
+      <div class="col-md-5" id="doc_side" aria-hidden="true">
         <div class="search_bar" id="doc_search">
           <input type="text" class="search_input"  name="search" placeholder="Search...">
-            <img class="search-img" src="static/image/search.svg"/>
+            <img class="search-img" src="static/image/icons/search.svg"/>
           <div data-name="search-btn" class="search-btn"></div>
         </div>
         <div class="doc_page">
@@ -30,10 +30,14 @@
           <div class="active_stoplists">
           </div>
         </div>
+        <div id="suggestion_page">
+        </div>
       </div>
       <div id="doc_functions" class="col-md-1" aria-hidden="true">
           <button type="button" id="def_stop_gen" name="BtnDefault" onclick="createStoplist('default')">Default</button>
           <button type="button" id="log_active_stopwords" name="stops" onclick="logActiveStopwords()">stops</button>
+          <button type="button" id="update_visuals_btn" name="visuals" onclick="updateVisuals()">visuals</button>
+          <button type="button" id="suggestions_btn" name="suggestions" onclick="provideSuggestions()">suggestions</button>
       </div>
       <div id="stop_functions" class="col-md-1" aria-hidden="true">
         <button type="button" name="BtnAdd" onclick="add()">Add</button>
@@ -42,7 +46,7 @@
       <div class="col-md-5" aria-hidden="true">
         <div class="search_bar" id="stop_search">
           <input type="text" class="search_input" name="search" placeholder="Search...">
-            <img class="search-img" src="static/image/search.svg"/>
+            <img class="search-img" src="static/image/icons/search.svg"/>
           <div data-name="search-btn" class="search-btn"></div>
         </div>
         <div class="stop_page">
@@ -54,7 +58,7 @@
 
 <!-- Variables -->
 <script type="text/javascript">
-  var numDocs = {{ num_docs }};
+  var doc_names = {{ doc_names|tojson|safe }};
 </script>
 
 <script type="text/javascript" src="{{ url_for('static', filename='handler.js') }}"></script>
