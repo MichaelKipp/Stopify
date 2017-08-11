@@ -1,20 +1,64 @@
-.container-fluid {
-  background: rgb(246, 246, 246);
+body {
   height: 100vh;
+  background-color: rgb(255, 255, 255);
+}
+
+
+h1 {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 5px 5px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  position: flex;
+  margin: 0 auto;
+  right: 50%;
+}
+
+.container-fluid {
+  padding: 0;
+  height: 100%;
   width: 100%;
 }
 
 .row {
+  display: flex;
+  margin: 0 0 0 0;
+  width: 100%;
   height: 100%;
 }
 
-.col-md-5 {
+.col-md-3 h1{
+  font-weight: bold;
+  text-align: justify;
+  font-size: 12px;
 }
 
-.search_bar {
+.col-md-6 {
+  display: block;
+  text-align: center;
+  position: static;
+  padding: 5px 5px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top: 2px;
+  border-bottom: 2px;
+  background: rgb(246, 246, 246);
+  box-shadow: inset 0.5px 2px 4px rgba(0,  0, 0, 0.05);
+}
+
+.search-bar {
   position: relative;
   display: inline-block;
-  width: 100%;
+  padding-right: 10px;
+  width: 95%;
   border: 1px solid rgba(0, 0, 0, .08);
   box-shadow:
     inset .5px 2px 4px rgba(0, 0, 0, 0.1);
@@ -23,7 +67,7 @@
   margin-top: 20px;
 }
 
-.search_input {
+.search-input {
   position: relative;
   border: none;
   width: 100%;
@@ -44,58 +88,60 @@
   cursor: pointer;
 }
 
-#doc_functions {
-  background-color: rgb(132, 142, 255);
-  height: 100%;
-}
-
-#stop_functions {
-  background-color: rgb(255,138,132);
-  height: 100%;
-}
-
-.doc_spot {
+.doc-spot {
   position: relative;
   height: 90%;
 }
 
-.doc_page {
+.doc-page {
+  margin-top: 20px;
+  margin-left: 40px;
+  text-align: left;
   position: relative;
-  height: 90%;
+  height: 80%;
 }
 
-.doc_container {
+.doc-container {
   display: inline-block;
   margin-top: 20px;
   width: auto;
 }
 
-.item_wrapper {
+.item-wrapper {
+  text-align: left;
   position: relative;
   float: left;
-  width: 100px;
-  height: 150px;
-  box-shadow: 0px 0px 8px 2px rgba(1, 1, 1, .1);
+  width: 130px;
+  height: 160px;
+  box-shadow: 0px 0px 6px 2px rgba(1, 1, 1, .1);
   border: .5px solid rgba(1, 1, 1, .1);
-  margin: 0 0 50px 30px;
+  margin: 10px 10px 10px 10px;
   cursor: pointer;
 }
 
-.doc_item {
+.doc-item {
   position: relative;
   background: rgb(255, 255, 255);
   display: inline-block;
-  padding: 12px 15px 0;
+  padding: 10px 12px;
   height: inherit;
   width: inherit;
   cursor: pointer;
 }
 
-.stop_page {
+.diagnostics-view {
+  position: absolute;
+  bottom: 0;
+  width: 100%
+}
+
+.stop-page {
+  text-align: left;
+  margin-left: 40px;
   margin-top: 20px;
 }
 
-.stop_item {
+.stop-item {
   position: relative;
   background: rgb(255, 255, 255);
   display: inline-block;
@@ -103,43 +149,94 @@
   height: inherit;
   width: inherit;
   cursor: pointer;
-  color: rgb(37, 37, 37);
 }
 
-.stop_item:hover {
-  box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, .04);
+.item-wrapper:hover {
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, .12);
 }
 
-.active_stoplists {
-  position: absolute;
-  display: flex;
+.document-diagnostics {
+  display: block;
+  margin: 0px 10px 5px 10px;
+  position: inherit;
   align-items: center;
-  overflow: auto;
-  height: 15%;
-  width: 100%;
+  vertical-align: middle;
+  height: 14%;
   background: rgb(255, 255, 255);
   border: 1px solid rgba(0, 0, 0, .05);
   box-shadow: 0px 0px 50px 0px rgba(2, 2, 2, .15);
-  bottom: 0px;
+  bottom: 0;
 }
 
-.activeListWrapper {
-  min-width: 75px;
-  width: 75px;
-  height: 100px;
-  margin: 0 10px;
-}
-
-#suggestion_page {
+/*#suggestion-page {
+    align-items: flex-start;
+    display: flex;
     height: 98%;
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    float: left;
-    background-color: rgb(255, 255, 255);
+    background: rgb(246, 246, 246);
     overflow-x: hidden;
     transition: 0.5s;
     margin: 10px 10px 10px 10px;
+}*/
+
+/*.suggestion-box{
+  width: 98%;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, .05);
+  color: rgb(0, 0, 0);
+  margin: 5px 20px 5px 5px;
+  padding: 5px 20px 5px 5px;
+}*/
+
+.doc-title {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  overflow: hidden;
+  max-width: 80px;
+}
+
+.stop-title {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  overflow: hidden;
+  max-width: 80px;
+}
+
+.doc-preview {
+  font-weight: normal;
+  max-width: inherit;
+  font-size: 9px;
+  line-height: 15px;
+  max-height: 90px;
+  overflow: hidden;
+}
+
+.stop-preview {
+  font-weight: normal;
+  max-width: inherit;
+  font-size: 9px;
+  line-height: 15px;
+  max-height: 90px;
+  overflow: hidden;
+}
+
+.buttonWrapper {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.stop-page-functions {
+  margin: 15px 2px;
+  float: left;
+  position: fixed;
+  display: grid;
 }
