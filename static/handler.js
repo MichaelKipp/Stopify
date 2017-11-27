@@ -104,6 +104,7 @@ function generateStoplistHTML(name, stopwords, type) {
   var hover = d3.select("#stoplist-" + name)
     .append("div")
       .attr("class", "stop-preview")
+      .attr("id", name + "-preview")
       .text(function() {
         if (stopwords.length > 14) {
           return stopwords.slice(0, 15).join(", ") + "...";
@@ -124,7 +125,7 @@ function generateStoplistHTML(name, stopwords, type) {
       .attr("height", "24px")
       .attr("fill", "red")
       .on("click", function() {
-        addNewWords(name);
+        addNewWord(name);
       })
 
   $('#list-' + name + "-options").hide();
@@ -133,13 +134,77 @@ function generateStoplistHTML(name, stopwords, type) {
 
 }
 
+function updateStoplistHTML(name) {
+  d3.select("#" + name + "-preview").remove()
+  d3.select("#" + name + "-options").remove()
+  var stopURL = '/get_stoplist/' + name;
+  d3.json(stopURL, function(foo) {
+    stopwords = foo['stoplist']['stopwords'];
+    d3.select("listwrapper-" + name)
+      .append("div")
+        .on('mouseover', function() {
+            $('#list-' + name + "-options").show();
+        })
+        .on('mouseout', function() {
+            $('#list-' + name + "-options").hide();
+        })
+        .on('click', function() {
+          activateStoplist(name);
+        })
+      .append("div")
+        .attr("class", "stop-title")
+        .text(function() {
+          if (name.length > 10) {
+            return name.substring(0, 10) + "...";
+          } else {
+            return name;
+          }
+        })
+    var hover = d3.select("#stoplist-" + name)
+      .append("div")
+        .attr("class", "stop-preview")
+        .attr("id", name + "-preview")
+        .text(function() {
+          if (stopwords.length > 14) {
+            return stopwords.slice(0, 15).join(", ") + "...";
+          } else {
+            return stopwords.slice(0, stopwords.length).join(", ") + "...";
+          }
+        })
+      .append("div")
+        .attr("class", "hover-options")
+        .attr("id", "list-" + name + "-options")
+      hover.append("img")
+        .attr("class", "hover-icon")
+        .attr("src", "static/image/icons/add_gray.svg")
+        .attr("display", "block")
+        .attr("position", "relative")
+        .attr("margin", "0 auto")
+        .attr("width", "24px")
+        .attr("height", "24px")
+        .attr("fill", "red")
+        .on("click", function() {
+          addNewWord(name);
+        })
+  })
+}
+
 // TODO: Can I not call d3.json?
 // TODO: Turns off stoplist if its active. Check for this and reactivate if necessary
-function addNewWords(name) {
+function addNewWord(name) {
   var newWord = prompt("Please enter a new stopword:", "");
   var addURL = '/add_to_stoplist/' + name + '/' + newWord;
   d3.json(addURL, function(foo) {
   });
+  updateStoplistHTML(name);
+}
+
+function removeWord(name) {
+  var removeWord = prompt("Please enter a stopword to remove:", "");
+  var addURL = '/remove_from_stoplist/' + name + '/' + removeWord;
+  d3.json(addURL, function(foo) {
+  });
+  updateStoplistHTML(name);
 }
 
 function generatePieChartData(name) {
@@ -211,9 +276,6 @@ function generateDocs(name) {
       .append("div")
         .attr("class", "doc-item")
         .attr("id", "document-" + name)
-        .on('click', function() {
-              console.log(foo['contents'].split(" ").slice(0, 20).join(" ") + "...");
-          })
       .append("div")
         .attr("class", "doc-title")
         .text(function() {
@@ -270,9 +332,17 @@ function collectAfterDiagnostics(docText, newStopwords) {
 
 function evaluateSuggestions() {
   d3.json('/get_stats/', function(foo) {
+    console.log(foo);
     stats = foo['stats'];
     latestStatistics = stats;
-    console.log(stats);
+
+    change = "";
+
+    if (stats[3][1] > 0) {
+      change = "+";
+    } else {
+      change = "-";
+    }
 
     d3.select(".word-field")
       .select("p").remove();
@@ -284,58 +354,41 @@ function evaluateSuggestions() {
       .select("p").remove();
     d3.select(".before-field")
       .append("p")
-        .text(stats[1][0] + ", " + stats[1][1])
+        .text("Total Tokens: " + stats[1][0])
+      .append("p")
+          .text("Average Token Length: "  + stats[1][1].toString().substring(0, 4))
 
     d3.select(".after-field")
       .select("p").remove();
     d3.select(".after-field")
       .append("p")
-        .text(stats[2][0] + ", " + stats[2][1])
-
-    d3.select(".improvement-field")
-      .select("p").remove();
-    d3.select(".improvement-field")
+        .text("Total Tokens: " + stats[2][0] + " (-" + stats[3][0] + ")")
       .append("p")
-        .text(stats[3][0] + ", " + stats[3][1])
+          .text("Average Token Length: "  + stats[2][1].toString().substring(0, 4)
+
+                  + " (" + change + stats[3][1].toString().substring(0, 4) + ")")
+
+    d3.select("#add-diagnostics-button")
+      .on("click", function() {
+        var name = prompt("What would you like to call this stoplist?", "")
+        createStoplist(name, stats[0], "domain");
+      })
   });
-}
-
-function provideSuggestions() {
-  // // Create HTML structure
-  // page = document.getElementById("suggestion-page")
-  // if (suggestionActive = !suggestionActive)
-  // {
-  //   page.style.boxShadow = "0px 0px 50px 0px rgba(2, 2, 2, .15)";
-  //   page.style.width =
-  //             (document.getElementById("doc-side").clientWidth - 20) + "px";
-  //   page.style.padding = "10px 10px 10px 10px";
-  // } else {
-  //   page.style.padding = "0";
-  //   page.style.width = "0px";
-  //   page.style.boxShadow = "none";
-  // }
-  evaluateSuggestions();
-
-}
-
-function saveSuggestions() {
-  var stoplistName = prompt("What would you like to call this stoplist?", "");
-  createStoplist(stoplistName, latestStatistics[0]);
 }
 
 window.onload = function() {
   addDocs();
   addExistingStoplists();
-  provideSuggestions();
+  evaluateSuggestions();
 
   $(document).ready(function(){
+
       $(".doc-search-box").keyup(function(){
           var searchTerm = $(this).val()
           if (searchTerm.length > 0) {
             // Loop through the comment list
             var stopURL = '/get_active_docs/' + searchTerm;
             d3.json(stopURL, function(foo) {
-              console.log(foo['docs']['active']);
               for (i = 0; i < doc_names.length; i++) {
                 if (foo['docs']['active'].includes(doc_names[i] + ".txt")) {
                   d3.select("." + doc_names[i] + "-wrapper")

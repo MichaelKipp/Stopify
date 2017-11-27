@@ -146,8 +146,11 @@ def getStoplist(name):
 @app.route('/create_stoplist')
 def createStoplist():
     name = request.args.get('name')
+    print ("File name:" + name)
     folder = request.args.get('folder')
-    print name
+    print ("File folder:" + folder)
+    words_to_add = request.args.getlist('stopwords')
+    print ("Words to add:" + str(words_to_add))
     try:
         os.makedirs('stoplists/')
     except OSError:
@@ -158,7 +161,6 @@ def createStoplist():
 
     else:
         with open("stoplists/" + folder + "/" + name + ".txt", "w") as file:
-            words_to_add = request.args.get('stopwords')
             for item in words_to_add:
                 file.write("%s\n" % item)
             file.close()
@@ -166,10 +168,35 @@ def createStoplist():
 
 @app.route('/add_to_stoplist/<name>/<word>')
 def addToStoplist(name, word):
-    with open("stoplists/" + name + ".txt", "a+") as file:
-        file.write("%s\n" % word)
-        file.close();
-    return jsonify({})
+    if os.path.isfile("stoplists/general/" + name + ".txt"):
+        with open("stoplists/general/" + name + ".txt", "a+") as file:
+            file.write("%s\n" % word)
+            file.close();
+        return jsonify({})
+    elif os.path.isfile("stoplists/domain/" + name + ".txt"):
+        with open("stoplists/domain/" + name + ".txt", "a+") as file:
+            file.write("%s\n" % word)
+            file.close();
+        return jsonify({})
+    else:
+        return "No such file exists."
+
+@app.route('/remove_from_stoplist/<name>/<word>')
+def removeFromStoplist(name, word):
+    if os.path.isfile("stoplists/general/" + name + ".txt"):
+        with open("stoplists/general/" + name + ".txt", "r+") as file:
+            for line in file:
+                if word in line:
+                    line.replace(word, "")
+            file.close();
+        return jsonify({})
+    elif os.path.isfile("stoplists/domain/" + name + ".txt"):
+        with open("stoplists/domain/" + name + ".txt", "a+") as file:
+            file.write("%s\n" % word)
+            file.close();
+        return jsonify({})
+    else:
+        return "No such file exists."
 
 # Render index.html
 @app.route('/')

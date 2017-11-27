@@ -24,43 +24,41 @@
             <img class="search-img" src="static/image/icons/search.svg"/>
           <div data-name="search-btn" class="search-btn"></div>
         </div>
-        <div class="doc-page">
+        <div class="doc-page" id="doc-page">
           <h1> Documents </h1>
           <!-- TODO: Add scroller that loads doc text preview-->
         </div>
-          <div class="document-diagnostics">
+          <div class="document-diagnostics" id="document-diagnostics">
             <div class="row">
-              <div class="col-md-3" id="diagnosedwords">
+              <div class="col-md-4" id="diagnosedwords">
                 <h1> Words </h1>
                 <div class="word-field">
                 </div>
               </div>
-              <div class="col-md-3" id="before-diagnostics">
+              <div class="col-md-4" id="before-diagnostics">
                 <h1> Before </h1>
                 <div class="before-field">
                 </div>
               </div>
-              <div class="col-md-3" id="after-diagnostics">
+              <div class="col-md-4" id="after-diagnostics">
                 <h1> After </h1>
                 <div class="after-field">
                 </div>
-              </div>
-              <div class="col-md-3" id="improvement-diagnostics">
-                <h1> Improvements </h1>
-                <div class="improvement-field">
+                <div id="add-diagnostics-button">
+                  <img class="stop-add-img" src="static/image/icons/ic_note_add_black_18px.svg"/>
                 </div>
               </div>
             </div>
           </div>
       </div>
-      <div class="col-md-6" aria-hidden="true">
+      <div class="col-md-6" id="stoplist-side" aria-hidden="true">
         <div class="search-bar" id="stop-search">
           <input type="text" class="live-search-box search-input" name="search" placeholder="Search...">
             <img class="search-img" src="static/image/icons/search.svg"/>
           <div data-name="search-btn" class="search-btn"></div>
         </div>
         <div class="stop-page-functions">
-          <img class="sto-add-img" src="static/image/icons/add_black.svg"/>
+          <img class="stop-add-img" src="static/image/icons/add_black.svg"/>
           <img class="stop-edit-img" src="static/image/icons/ic_edit_black_18px.svg"/>
           <img class="stop-edit-img" src="static/image/icons/ic_remove_black_18px.svg"/>
           <img class="stop-edit-img" src="static/image/icons/ic_save_black_18px.svg"/>
@@ -78,7 +76,6 @@
   </div>
 </body>
 
-<!-- Variables -->
 <script type="text/javascript">
   var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   var doc_names = {{ doc_names|tojson|safe }};
